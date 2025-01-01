@@ -55,4 +55,10 @@ def find_account(account_number):
             return index + 2, account  # Return row number and account details
     return None, None
 
-
+def generate_account_number():
+    """Generate a unique 10-digit account number."""
+    while True:
+        account_number = random.randint(1000000000, 9999999999)
+        _, account = find_account(account_number)
+        if not account:  # Ensure the account number is unique
+            return account_number
