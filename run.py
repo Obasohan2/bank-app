@@ -25,3 +25,15 @@ def print_database():
     if not accounts:
         print("No accounts found in the database.")
         return
+
+
+    # Create a PrettyTable instance
+    table = PrettyTable()
+    table.field_names = ["Name", "Account Number", "Balance (£)"]
+
+    for account in accounts:
+        table.add_row([account['Name'], account['Account Number'], account['Balance']])
+
+    print(table)
+
+    
