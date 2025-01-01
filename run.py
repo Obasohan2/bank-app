@@ -90,3 +90,82 @@ def debit_account(account_number, amount):
     if not account:
         print(f"Account with number '{account_number}' not found.")
         return
+
+
+    current_balance = account['Balance']
+    if current_balance < amount:
+        print(f"Insufficient funds, account balance is £{current_balance}")
+        return
+
+    new_balance = account['Balance'] - amount
+    accounts_sheet.update_cell(row, 3, new_balance)
+    print(f"Debited £{amount}. New balance: £{new_balance}.")
+
+def credit_account(account_number, amount):
+    """
+    Credit an amount to the account.
+    """
+    print("crediting in progress...")
+    row, account = find_account(account_number)
+    if not account:
+        print(f"Account with number '{account_number}' not found.")
+        return
+
+    new_balance = account['Balance'] + amount
+    accounts_sheet.update_cell(row, 3, new_balance)
+    print(f"Credited £{amount}. New balance: £{new_balance}.")
+
+
+
+
+
+
+def main():
+    print("Welcome to the Banking App")
+    print("==========================")
+
+    while True:
+        print("\nSelect an option:")
+        print("1. Create Account")
+        print("2. Debit Account")
+        print("3. Credit Account")
+        print("4. Display Balance")
+        print("5. Print Database")  # New option
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            name = input("Enter Account Name: ")
+            initial_balance = input("Enter initial balance (£):)")
+            if not is_money(initial_balance):
+                print("Invalid balance amount.")
+                continue
+            create_account(name, float(initial_balance))
+        elif choice == "2":
+            account_number = input("Enter account number: ")
+            amount = input("Enter amount to debit (£): ")
+            if not is_money(amount):
+                print("Invalid amount.")
+                continue
+            debit_account(account_number, float(amount))
+        elif choice == "3":
+            account_number = input("Enter account number: ")
+            amount = input("Enter amount to credit (£): ")
+            if not is_money(amount):
+                print("Invalid amount.")
+                continue
+            credit_account(account_number, float(amount))
+        elif choice == "4":
+            account_number = input("Enter account number: ")
+            display_balance(account_number)
+        elif choice == "5":
+            print_database()  
+        elif choice == "6":
+            print("Exiting the application. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
