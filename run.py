@@ -115,9 +115,17 @@ def credit_account(account_number, amount):
     accounts_sheet.update_cell(row, 3, new_balance)
     print(f"Credited £{amount}. New balance: £{new_balance}.")
 
+def display_balance(account_number):
+    """
+    Display the balance for a specific account.
+    """
+    print("Wait... Getting balance...")
+    _, account = find_account(account_number)
+    if not account:
+        print(f"Account with number '{account_number}' not found.")
+        return
 
-
-
+    print(f"Current balance for account {account_number}: £{account['Balance']}")
 
 
 def main():
