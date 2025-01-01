@@ -37,3 +37,22 @@ def print_database():
     print(table)
 
     
+# check if an amount is a numeric
+def is_money(value):
+    """Check if a string can be converted to a float."""
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+def find_account(account_number):
+    """Find an account by account number."""
+    accounts = accounts_sheet.get_all_records()
+    for index, account in enumerate(accounts):
+        ## convert both values to string for easy comparisim 
+        if str(account['Account Number']) == str(account_number):
+            return index + 2, account  # Return row number and account details
+    return None, None
+
+
