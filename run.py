@@ -20,7 +20,9 @@ accounts_sheet = SHEET.worksheet("accounts")
 from prettytable import PrettyTable
 
 def print_database():
-    """Print all accounts in the database in a formatted table."""
+    """
+    Print all accounts in the database in a formatted table.
+    """
     accounts = accounts_sheet.get_all_records()
     if not accounts:
         print("No accounts found in the database.")
@@ -39,7 +41,9 @@ def print_database():
     
 # check if an amount is a numeric
 def is_money(value):
-    """Check if a string can be converted to a float."""
+    """
+    Check if a string can be converted to a float.
+    """
     try:
         float(value)
         return True
@@ -47,7 +51,9 @@ def is_money(value):
         return False
 
 def find_account(account_number):
-    """Find an account by account number."""
+    """
+    Find an account by account number.
+    """
     accounts = accounts_sheet.get_all_records()
     for index, account in enumerate(accounts):
         ## convert both values to string for easy comparisim 
@@ -56,9 +62,31 @@ def find_account(account_number):
     return None, None
 
 def generate_account_number():
-    """Generate a unique 10-digit account number."""
+    """
+    Generate a unique 10-digit account number.
+    """
     while True:
         account_number = random.randint(1000000000, 9999999999)
         _, account = find_account(account_number)
         if not account:  # Ensure the account number is unique
             return account_number
+
+
+def create_account(name, initial_balance):
+    """
+    Create a new account.
+    """
+    print("Creating account...")
+    account_number = generate_account_number()
+    accounts_sheet.append_row([name, account_number, float(initial_balance)])
+    print(f"Account created successfully. Account Number is: {account_number}")
+
+def debit_account(account_number, amount):
+    """
+    Debit an amount from the account.
+    """
+    print("debiting in progress...")
+    row, account = find_account(account_number)
+    if not account:
+        print(f"Account with number '{account_number}' not found.")
+        return
