@@ -127,17 +127,26 @@ def display_balance(account_number):
 
 
 def main():
+    print("==========================")
     print("Welcome to the Banking App")
     print("==========================")
 
     while True:
         print("\nSelect an option:")
+
+        print("==========================")
         print("1. Create Account")
+        print("==========================")
         print("2. Debit Account")
+        print("==========================")
         print("3. Credit Account")
+        print("==========================")
         print("4. Display Balance")
+        print("==========================")
         print("5. Print Database")  # New option
+        print("==========================")
         print("6. Exit")
+        print("==========================")
 
         choice = input("Enter your choice: ")
 
