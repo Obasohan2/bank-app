@@ -17,8 +17,6 @@ SHEET = GSPREAD_CLIENT.open('bank_app')
 # Access the sheet
 accounts_sheet = SHEET.worksheet("accounts")
 
-from prettytable import PrettyTable
-
 def print_database():
     """
     Print all accounts in the database in a formatted table.
