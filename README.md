@@ -59,9 +59,8 @@ The Application has been deployed from GitHub to Heroku by following the steps:
 3. Give your branch a name.
 4. Go to the CODE area on the right and select "Open with GitHub Desktop".
 5. You will be asked if you want to clone the repository - say yes.
-6. GitHub desktop will suggest what to do next - select Open code using Visual Studio Code.
-   
-The deployed project live link is [HERE](https://corri-construction-8c4725a33281.herokuapp.com/) - ***Use Ctrl (Cmd) and click to open in a new window.***  
+6. GitHub desktop will suggest what to do next - select Open code using Gitpod.
+
 
 
 <h2>Credits</h2> 
