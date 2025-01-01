@@ -14,6 +14,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('bank_app')
 
+
 # Access the sheet
 accounts_sheet = SHEET.worksheet("accounts")
 
@@ -28,13 +29,8 @@ def print_database():
         return
 
     # Create a PrettyTable instance
-    table = PrettyTable()
-    table.field_names = ["Name", "Account Number", "Balance (£)"]
-
-    for account in accounts:
-        table.add_row([account['Name'], account['Account Number'], account['Balance']])
-
-    print(table)
+    table.add_row([
+        account['Name'], account['Account Number'], account['Balance']])
 
 
 # check if an amount is a numeric
@@ -48,18 +44,16 @@ def is_money(value):
     except ValueError:
         return False
 
-
 def find_account(account_number):
     """
     Find an account by account number.
     """
     accounts = accounts_sheet.get_all_records()
     for index, account in enumerate(accounts):
-        # convert both values to string for easy comparism
+        # convert both values to string for easy comparism 
         if str(account['Account Number']) == str(account_number):
             return index + 2, account  # Return row number and account details
     return None, None
-
 
 def generate_account_number():
     """
@@ -71,7 +65,6 @@ def generate_account_number():
         if not account:  # Ensure the account number is unique
             return account_number
 
-
 def create_account(name, initial_balance):
     """
     Create a new account.
@@ -80,7 +73,6 @@ def create_account(name, initial_balance):
     account_number = generate_account_number()
     accounts_sheet.append_row([name, account_number, float(initial_balance)])
     print(f"Account created successfully. Account Number is: {account_number}")
-
 
 def debit_account(account_number, amount):
     """
@@ -92,16 +84,14 @@ def debit_account(account_number, amount):
         print(f"Account with number '{account_number}' not found.")
         return
 
-
-current_balance = account['Balance']
-if current_balance < amount:
-    print(f"Insufficient funds, account balance is £{current_balance}")
-    return
+    current_balance = account['Balance']
+    if current_balance < amount:
+        print(f"Insufficient funds, account balance is £{current_balance}")
+        return
 
     new_balance = account['Balance'] - amount
     accounts_sheet.update_cell(row, 3, new_balance)
     print(f"Debited £{amount}. New balance: £{new_balance}.")
-
 
 def credit_account(account_number, amount):
     """
@@ -117,7 +107,6 @@ def credit_account(account_number, amount):
     accounts_sheet.update_cell(row, 3, new_balance)
     print(f"Credited £{amount}. New balance: £{new_balance}.")
 
-
 def display_balance(account_number):
     """
     Display the balance for a specific account.
@@ -125,10 +114,10 @@ def display_balance(account_number):
     print("Wait... Getting balance...")
     _, account = find_account(account_number)
     if not account:
-        print(f"Account with number '{account_number}' not found.")
+        print(f"Account with number'{account_number}' not found.")
         return
- print(f"Current balance for account {account_number}: £{account['Balance']}")
 
+    print(f"Current balance {account_number}: £{account['Balance']}")
 
 def main():
     print("==========================")
@@ -136,7 +125,7 @@ def main():
     print("==========================")
 
     while True:
-        print("\nSelect an option:")
+        print("\nSelect an option:\n")
 
         print("==========================")
         print("1. Create Account")
